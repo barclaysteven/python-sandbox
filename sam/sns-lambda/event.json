@@ -1,0 +1,32 @@
+{
+  "Records": [
+    {
+      "EventSource": "aws:sns",
+      "EventVersion": "1.0",
+      "EventSubscriptionArn": "arn:aws:sns:us-east-1::ExampleTopic",
+      "Sns": {
+        "Type": "Notification",
+        "MessageId": "95df01b4-ee98-5cb9-9903-4c221d41eb5e",
+        "TopicArn": "arn:aws:sns:us-east-1:123456789012:ExampleTopic",
+        "Subject": "Auto Scaling: failed launch",
+        "Message": "{\"Progress\":100,\"AccountId\":\"074150922133\",\"Description\":\"Launching a new EC2 instance.  Status Reason: There is no ACTIVE Load Balancer named 'adhoc-p1-barclays-asg-note-test'. Validating load balancer configuration failed.\",\"RequestId\":\"7895a822-c895-a9f8-9fdb-ad6f60c4d3b1\",\"EndTime\":\"2019-04-10T19:20:53.000Z\",\"AutoScalingGroupARN\":\"arn:aws:autoscaling:us-east-1:074150922133:autoScalingGroup:45db6357-0827-41eb-9a8a-bdbbaf7bb95b:autoScalingGroupName/paas-cloudformation-deploy-paas-dtm-proxy-asg-dev-v6-proxies-asgUsEast1-128ZPTEMJOJ7E-asgDTMproxy-3QYWP0M88KGR\",\"ActivityId\":\"7895a822-c895-a9f8-9fdb-ad6f60c4d3b1\",\"StartTime\":\"2019-04-10T19:20:53.866Z\",\"Service\":\"AWS Auto Scaling\",\"Time\":\"2019-04-10T19:20:54.232Z\",\"EC2InstanceId\":\"\",\"StatusCode\":\"Failed\",\"StatusMessage\":\"There is no ACTIVE Load Balancer named 'adhoc-p1-barclays-asg-note-test'. Validating load balancer configuration failed.\",\"Details\":{\"Subnet ID\":\"subnet-c24074b6\",\"Availability Zone\":\"us-east-1a\"},\"AutoScalingGroupName\":\"paas-cloudformation-deploy-paas-dtm-proxy-asg-dev-v6-proxies-asgUsEast1-128ZPTEMJOJ7E-asgDTMproxy-3QYWP0M88KGR\",\"Cause\":\"At 2019-04-10T19:20:52Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 0 to 1.  At 2019-04-10T19:20:46Z a user request executed policy paas-cloudformation-deploy-paas-dtm-proxy-asg-dev-v6-proxies-asgUsEast1-128ZPTEMJOJ7E-ScaleUpPolicy-196704H3CU1ET changing the desired capacity from 0 to 1.\",\"Event\":\"autoscaling:EC2_INSTANCE_LAUNCH_ERROR\"}",
+        "Timestamp": "1970-01-01T00:00:00.000Z",
+        "SignatureVersion": "1",
+        "Signature": "EXAMPLE",
+        "SigningCertUrl": "EXAMPLE",
+        "UnsubscribeUrl": "EXAMPLE",
+        "MessageAttributes": {
+          "Test": {
+            "Type": "String",
+            "Value": "TestString"
+          },
+          "TestBinary": {
+            "Type": "Binary",
+            "Value": "TestBinary"
+          }
+        }
+      }
+    }
+  ]
+}
+

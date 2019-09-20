@@ -1,17 +1,29 @@
 import boto3
+from botocore.exceptions import ClientError
+
+session = boto3.Session(profile_name='dev-fh5')
+ssm = session.client('ssm', region_name='us-east-1')
 
 
-ssm = boto3.client('ssm', region_name='us-east-1')
+def get_string_list():
+    try:
+        results = ssm.get_parameter(Name='/priv-1/paas-aws-user-mgmt/1234321/admin')
+        return results
+    except ClientError as e:
+        raise e
 
-results = ssm.get_automation_execution(AutomationExecutionId="1c992fd0-c50c-11e7-b3b8-1957b5544865")['AutomationExecution']
 
-step_executions = results['StepExecutions']
+try:
+    response = get_string_list()
+except ClientError as e:
+    if e.response['Error']['Code'] == "ParameterNotFound":
+        admin_string = "123454321"
+    else:
+        raise e
 
-print(results)
-
-outputs = {}
-
-for step in step_executions:
-    outputs[step['StepName']] = step['Outputs']
-
-print(outputs)
+try:
+    print(admin_string)
+    ssm.put_parameter(Name='/priv-1/paas-aws-user-mgmt/1234321/admin',
+                      Value=admin_string, Type='StringList', Overwrite=True)
+except ClientError as e:
+    print(e.response)

@@ -34,6 +34,7 @@ class Timer:
 def countdown(n):
     while n > 0:
         n -= 1
+        time.sleep(1)
 
 
 t = Timer()
