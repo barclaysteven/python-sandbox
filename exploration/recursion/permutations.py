@@ -10,8 +10,7 @@ def permutation_recursive(my_string):
 
     for char in range(len(my_string)):
         prefix = my_string[char]
-        remainder = my_string[:char] + my_string[char + 1:]
-        subperms = permutation_recursive(remainder)
+        subperms = permutation_recursive(my_string[:char] + my_string[char + 1:])
 
         if not subperms:
             permutations.append(prefix)
