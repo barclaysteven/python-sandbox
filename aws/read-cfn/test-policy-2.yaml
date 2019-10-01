@@ -7,7 +7,7 @@ Resources:
     Properties:
       Description: SNS policies for Operations Role.
       Path: /org-3/
-      ManagedPolicyName: Test_Operations_Policy
+      ManagedPolicyName: Test_Operations_Policy_Two
       PolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -43,36 +43,3 @@ Resources:
               StringLike:
                 aws:PrincipleTag/roleType:
                   - dpt
-  StorageOperations:
-    Type: AWS::IAM::ManagedPolicy
-    Properties:
-      Description: SNS policies for Operations Role.
-      Path: /org-3/
-      ManagedPolicyName: Test_Operations_Policy_Storage
-      PolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Action:
-              - s3:GetObject
-            Resource:
-              - arn:aws:s3:::adhoc-barclays-test/*
-            Condition:
-              StringLike:
-                aws:PrincipalTag/testReadOverride:
-                  - "*/*/*"
-          - Effect: Allow
-            Action:
-              - s3:GetObject
-            Resource:
-              - arn:aws:s3:::adhoc-barclays-test-two/*
-          - Effect: Deny
-            Action:
-              - s3:GetObject
-            Resource:
-              - arn:aws:s3:::adhoc-barclays-deny-bucket/*
-          - Effect: Allow
-            Action:
-              - s3:PutObject
-            Resource:
-              - arn:aws:s3:::adhoc-barclays-put-action/*

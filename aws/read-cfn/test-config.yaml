@@ -1,0 +1,45 @@
+TestCases:
+  - TemplateName: test-policy.yaml
+    PolicyAssertions:
+      - PolicyName: Test_Operations_Policy
+        Tests:
+          - Name: shouldImplicitDeny_CreateTopic_OnPsTopics
+            Actions:
+              - sns:CreateTopic
+            ExpectedDecision: implicitDeny
+            Resources:
+              - arn:aws:sns:us-east-1:221453998677:ps-test-topic
+      - PolicyName: Test_Operations_Policy_Storage
+        Tests:
+          - Name: shouldImplicitDeny_GetObject_withIncorrectContext
+            Actions:
+              - s3:GetObject
+            ExpectedDecision: implicitDeny
+            Resources:
+              - arn:aws:s3:::adhoc-barclays-test/foo
+            Context:
+              KeyName: aws:PrincipalTag/testReadOverride
+              Value: "foo/bar"
+              Type: string
+          - Name: shouldExplicitDeny_GetObject_ForDenyBucket
+            Actions:
+              - s3:GetObject
+            ExpectedDecision: explicitDeny
+            Resources:
+              - arn:aws:s3:::adhoc-barclays-deny-bucket/baz
+          - Name: shouldImplicitDeny_GetObject_ForPutBucket
+            Actions:
+              - s3:GetObject
+            ExpectedDecision: implicitDeny
+            Resources:
+              - arn:aws:s3:::adhoc-barclays-put-action/baz
+  - TemplateName: test-policy-2.yaml
+    PolicyAssertions:
+      - PolicyName: Test_Operations_Policy_Two
+        Tests:
+          - Name: shouldDeny_CreateTopic_OnPsTopics
+            Actions:
+              - sns:CreateTopic
+            ExpectedDecision: implicitDeny
+            Resources:
+              - arn:aws:sns:us-east-1:221453998677:ps-test-topic
