@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Test role and policy for the iam policy simulator
+Resources:
+  SampleRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: paas-aws-policy-test
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: paas-policy-simulator-test-policy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              -
+                Effect: Allow
+                Action:
+                  - s3:GetObject
+                Resource:
+                  - arn:aws:s3:::adhoc-wakefieldsi-policy-simulator-allow-with-conditions/*
+                Condition:
+                  StringLike:
+                    aws:PrincipalTag/testReadOverride:
+                      - "*/*/*"
+              -
+                Effect: Allow
+                Action:
+                  - s3:GetObject
+                Resource:
+                  - arn:aws:s3:::adhoc-wakefieldsi-policy-simulator-allow-action-no-conditions/*
+              -
+                Effect: Deny
+                Action:
+                  - s3:GetObject
+                Resource:
+                  - arn:aws:s3:::adhoc-wakefieldsi-policy-simulator-deny-bucket/*
+              -
+                Effect: Allow
+                Action:
+                  - s3:PutObject
+                Resource:
+                  - arn:aws:s3:::adhoc-wakefieldsi-policy-simulator-allow-put-action-no-conditions/*
